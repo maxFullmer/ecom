@@ -1,11 +1,29 @@
 <?php
 
-if($connection) {
+function redirect($location) {
+    header("Location: $location ");
+};
 
-echo "db is connected";
+function query($sql) {
+    global $connection;
 
+    return mysqli_query($connection, $sql);
 }
 
-echo "from functions.php"
+function confirm($result) {
+    global $connection;
 
+    if(!$result) {
+        die("QUERY FAILED" . mysqli_error($connection));
+    };
+}
+
+function escape_string($string) {
+    global $connection;
+    return mysqli_real_escape_string($connection, $string);
+}
+
+function fetch_array($result) {
+    return mysqli_fetch_array($result);
+}
 ?>
