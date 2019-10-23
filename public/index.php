@@ -1,6 +1,10 @@
-<!-- apply configuration settings main app page (this page) -->
 <?php require_once("../resources/config.php"); ?>
+
+<!DOCTYPE html>
+<html lang="en">
+
 <?php include(TEMPLATE_FRONT . DS . "header.php"); ?>
+
 <body>
 
     <?php include(TEMPLATE_FRONT . DS . "top_nav.php"); ?>
