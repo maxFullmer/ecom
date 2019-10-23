@@ -12,13 +12,52 @@
     <!-- Page Content -->
 <div class="container">
 
-       <!-- Side Navigation -->
-
     <?php include(TEMPLATE_FRONT . DS . "side_nav.php"); ?>
 
-    <!-- moved to get_single_product() -->
+    <div class="col-md-9">
+
+    <!--Row For Image and Short Description-->
+
+    <div class="row">
 
     <?php get_single_product(); ?>
+
+    </div>
+
+    <hr>
+
+    <!--Row for Tab Panel-->
+
+    <div class="row">
+
+    <div role="tabpanel">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
+        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews</a></li>
+    </ul>
+
+  <!-- Tab panes -->
+    <div class="tab-content">
+
+    <div role="tabpanel" class="tab-pane active" id="home">
+
+    <?php get_product_description_long(); ?>
+
+    </div>
+
+    <div role="tabpanel" class="tab-pane" id="profile">
+    
+    <?php get_product_reviews(); ?>
+
+    </div>
+
+    </div><!-- -->
+
+    </div><!--Row for Tab Panel-->
+
+    </div>
 
 </div>
     <!-- footer -->
