@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include(TEMPLATE_FRONT . DS . "header.php"); ?>
+<?php include(TEMPLATE_FRONT . DS . "head.php"); ?>
 
 <body>
 
@@ -21,6 +21,7 @@
                 <div class="row carousel-holder">
 
                     <div class="col-md-12">
+                        <div id="featured">FEATURED SEASONAL SELECTIONS</div>
                         <?php include(TEMPLATE_FRONT . DS . "slider.php"); ?>
                     </div>
 

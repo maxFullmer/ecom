@@ -2,3 +2,9 @@
     background: orange;
     /* height: 200px; */
 }
+
+#featured {
+    align-self: auto;
+    text-align: right;
+    background: lime;
+}

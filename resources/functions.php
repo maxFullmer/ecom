@@ -273,5 +273,32 @@ DELIMETER_PROD_BY_CAT;
         echo $product_by_cat_HTML;
     }
 }
+
+function get_products_for_shop_page() {
+
+    $products_for_shop_page = query("SELECT * FROM products WHERE product_category_id =" . escape_string($_GET['id']) . " ");
+    confirm($products_for_shop_page);
+
+    while($product_for_shop_page = fetch_array($products_for_shop_page)) {
+        $product_for_shop_page_HTML = <<<DELIMETER_PROD_BY_CAT
+
+<div class="col-md-3 col-sm-6 hero-feature">
+    <div class="thumbnail">
+        <img src="{$product_for_shop_page['product_image']}" alt="">
+        <div class="caption">
+            <h3>{$product_for_shop_page['product_title']}</h3>
+            <p>{$product_for_shop_page['product_description_short']}</p>
+            <p>
+                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+DELIMETER_PROD_BY_CAT;
+
+        echo $product_by_cat_HTML;
+    }
+}
 /* -------------------BACK END FUNCTIONS----------------- */
 ?>

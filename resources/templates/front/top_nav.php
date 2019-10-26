@@ -15,19 +15,19 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">Shop</a>
+                        <a href="shop.php">Search the Catalog</a>
                     </li>
                     <li>
-                        <a href="#">Login</a>
+                        <a href="login.php">View Personal Account</a>
                     </li>
                     <li>
-                        <a href="admin">Admin</a>
+                        <a href="admin">Admins Only</a>
                     </li>
                      <li>
-                        <a href="checkout.html">Checkout</a>
+                        <a href="checkout.html">Checkout Cart .\_/.</a>
                     </li>
                     <li>
-                        <a href="contact.html">Contact</a>
+                        <a href="contact.html">Contact Us!</a>
                     </li>
 
                 </ul>
