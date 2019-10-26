@@ -85,7 +85,9 @@ function get_single_product() {
 
     $product = fetch_array($get_product);
 
+    // send data to be used for description tag
     $_SESSION['current_product_description_long'] = $product['product_description_long'];
+    // allow data to be used for rating bar
     $_SESSION['current_product_id'] = $_GET['id'];
 
     ob_start();
@@ -101,29 +103,28 @@ function get_single_product() {
     $product_stub_alone = <<<DELIMETER_PROD
 
 <div class="col-md-7">
-       <img class="img-responsive" src="{$product['product_image']}" alt="Product">
+    <img class="img-responsive" src="{$product['product_image']}" alt="Product">
+</div>
 
-    </div>
+<div class="col-md-5">
 
-    <div class="col-md-5">
-
-        <div class="thumbnail">
-         
+    <div class="thumbnail">
+        
     <div class="caption-full">
         <h4><a href="#">{$product['product_title']}</a> </h4>
         <hr>
         <h4 class="">\${$product['product_price']}</h4>
 
-    <!-- ratings -->
-    {$rating_total}
-      
+        <!-- ratings -->
+        {$rating_total}
+    
         <p>{$product['product_description_short']}</p>
 
-    {$add_to_cart_button}
+        {$add_to_cart_button}
 
     </div>
- 
-</div>
+
+    </div>
 
 </div>
 
@@ -149,17 +150,15 @@ function get_product_reviews() {
     $ratings = query("SELECT * FROM ratings WHERE rating_product_id =" . escape_string($_SESSION['current_product_id']) . " ");
     confirm($ratings);
 
-    echo"<div class='col-md-6'>";
-
-    if (!fetch_array($ratings)) {
-        echo "<div class='row'><p></p><p>This product has no reviews yet!</p>";
+    if (fetch_array($ratings) === NULL) {
+        echo "<hr><div class='row'><p></p><p>This product has no reviews yet!</p></div>";
     }
     else {
-
-        while($row = fetch_array($ratings)) {
+        echo "<div class='col-md-6'>";
+        while($rating = fetch_array($ratings)) {
             
-            $_SESSION['current_rating_value'] = $row['rating_value'];
-            $rating_date_yyyymmdd = substr($row['rating_date'],0,10);
+            $_SESSION['current_rating_value'] = $rating['rating_value'];
+            $rating_date_yyyymmdd = substr($rating['rating_date'],0,10);
 
             ob_start();
             include(TEMPLATE_FRONT . DS . "rating_individual.php");
@@ -173,46 +172,45 @@ function get_product_reviews() {
 <div class="row">
     <div class="col-md-12">
         {$rating_individual}
-        {$row['rating_rater']}
+        {$rating['rating_rater']}
         
         <span class="pull-right">{$rating_date_yyyymmdd}</span>
-        <p>{$row['rating_product_review']}</p>
+        <p>{$rating['rating_product_review']}</p>
     </div>
 </div>
 
 DELIMETER_PROD_REVIEWS;
-
-            echo $rating_and_review;
+        echo $rating_and_review;
         }
+        echo "</div>";
     }
-
     $rating_and_review_form = <<<DELIMETER_RR_FORM
 
 <div class="col-md-6">
     <h3>Add A review</h3>
 
     <form action="" class="form-inline">
-    <div class="form-group">
-        <label for="">Name</label>
+        <div class="form-group">
+            <label for="">Name</label>
             <input type="text" class="form-control" >
         </div>
         <div class="form-group">
-        <label for="">Email</label>
+            <label for="">Email</label>
             <input type="test" class="form-control">
         </div>
 
-    <div>
-        <h3>Your Rating</h3>
-        <span class="glyphicon glyphicon-star"></span>
-        <span class="glyphicon glyphicon-star"></span>
-        <span class="glyphicon glyphicon-star"></span>
-        <span class="glyphicon glyphicon-star"></span>
-    </div>
+        <div>
+            <h3>Your Rating</h3>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+        </div>
 
         <br>
         
         <div class="form-group">
-        <textarea name="" id="" cols="60" rows="10" class="form-control"></textarea>
+            <textarea name="" id="" cols="60" rows="10" class="form-control"></textarea>
         </div>
 
         <br>
@@ -227,8 +225,7 @@ DELIMETER_PROD_REVIEWS;
 DELIMETER_RR_FORM;
 
     echo $rating_and_review_form;
-    echo "</div>";
-
+    
 }
 
 // SSR call 5: fetch categories
@@ -248,6 +245,33 @@ DELIMETER_CAT;
     echo $category_link;
     };
 
+}
+
+function get_products_by_category() {
+
+    $products_by_category = query("SELECT * FROM products WHERE product_category_id =" . escape_string($_GET['id']) . " ");
+    confirm($products_by_category);
+
+    while($product_by_cat = fetch_array($products_by_category)) {
+        $product_by_cat_HTML = <<<DELIMETER_PROD_BY_CAT
+
+<div class="col-md-3 col-sm-6 hero-feature">
+    <div class="thumbnail">
+        <img src="{$product_by_cat['product_image']}" alt="">
+        <div class="caption">
+            <h3>{$product_by_cat['product_title']}</h3>
+            <p>{$product_by_cat['product_description_short']}</p>
+            <p>
+                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+DELIMETER_PROD_BY_CAT;
+
+        echo $product_by_cat_HTML;
+    }
 }
 /* -------------------BACK END FUNCTIONS----------------- */
 ?>
