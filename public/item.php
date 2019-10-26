@@ -14,52 +14,52 @@
 
     <?php include(TEMPLATE_FRONT . DS . "side_nav.php"); ?>
 
-    <div class="col-md-9">
+    <div class="col-md-9"><!--Main Contents-->
 
     <!--Row For Image and Short Description-->
 
-    <div class="row">
+        <div class="row">
 
-    <?php get_single_product(); ?>
+            <?php get_single_product(); ?>
 
-    </div>
+        </div>
 
-    <hr>
+        <hr>
 
-    <!--Row for Tab Panel-->
+    <!--Row for Tab Panel Container-->
 
-    <div class="row">
+        <div class="row">
 
-    <div role="tabpanel">
+            <div role="tabpanel">
 
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
-        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews</a></li>
-    </ul>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews</a></li>
+                </ul>
 
-  <!-- Tab panes -->
-    <div class="tab-content">
+                <!-- Tab content -->
+                <div class="tab-content">
 
-    <div role="tabpanel" class="tab-pane active" id="home">
+                    <div role="tabpanel" class="tab-pane active" id="home">
 
-    <?php get_product_description_long(); ?>
+                        <?php get_product_description_long(); ?>
 
-    </div>
+                    </div>
 
-    <div role="tabpanel" class="tab-pane" id="profile">
+                    <div role="tabpanel" class="tab-pane" id="profile">
     
-    <?php get_product_reviews(); ?>
+                        <?php get_product_reviews(); ?>
 
-    </div>
+                    </div>
 
-    </div><!-- -->
+                </div><!-- End of tab content  -->
 
-    </div><!--Row for Tab Panel-->
+            </div><!--End of Tab Panel -->
 
-    </div>
+        </div><!--End of Tab Panel Container-->
 
-</div>
+    </div><!-- End of Main contents -->
     <!-- footer -->
     <?php include(TEMPLATE_FRONT . DS . "footer.php"); ?>
 
