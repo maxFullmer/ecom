@@ -24,10 +24,10 @@
                         <a href="admin">Admins Only</a>
                     </li>
                      <li>
-                        <a href="checkout.html">Checkout Cart .\_/.</a>
+                        <a href="checkout.php">Checkout Cart .\_/.</a>
                     </li>
                     <li>
-                        <a href="contact.html">Contact Us!</a>
+                        <a href="contact.php">Contact Us!</a>
                     </li>
 
                 </ul>
