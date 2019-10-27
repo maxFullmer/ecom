@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include(TEMPLATE_FRONT . DS . "header.php"); ?>
+<?php include(TEMPLATE_FRONT . DS . "head.php"); ?>
 
 <body>
 

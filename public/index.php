@@ -21,7 +21,7 @@
                 <div class="row carousel-holder">
 
                     <div class="col-md-12">
-                        <div id="featured">FEATURED SEASONAL SELECTIONS</div>
+                        <div class="text-center">FEATURED SEASONAL SELECTIONS</div>
                         <?php include(TEMPLATE_FRONT . DS . "slider.php"); ?>
                     </div>
 
