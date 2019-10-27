@@ -29,6 +29,21 @@ function fetch_array($result) {
     return mysqli_fetch_array($result);
 }
 
+function set_message($msg){
+    if(!empty($msg)) {
+        $_SESSION['message'] = $msg;
+    } else {
+        $msg = "";
+    }
+}
+
+function display_message() {
+    if(isset($_SESSION['message'])) {
+        echo $_SESSION['message'];
+        unset($_SESSION['message']);
+    }
+}
+
 /* -------------------FRONT END FUNCTIONS/SSR----------------- */
 
 // SSR 1: fetch products for index.php (home page)
@@ -301,4 +316,42 @@ DELIMETER_PROD_BY_CAT;
     }
 }
 /* -------------------BACK END FUNCTIONS----------------- */
+
+function login_user() {
+    if(isset($_POST['submit'])) {
+        $username= escape_string($_POST['username']);
+        $password= escape_string($_POST['password']);
+        
+    $attempt_login = query("SELECT * FROM users WHERE username = '{$username}' AND password = '{$password}' ");
+    confirm($attempt_login);
+
+    if(mysqli_num_rows($attempt_login) == 0) {
+        redirect("login.php");
+        set_message("Incorrect Credentials");
+    } else {
+        redirect("admin");
+    }
+    }
+}
+
+function send_message() {
+    if(isset($_POST['submit'])) {
+        $to = "hi5maxf@gmail.com";
+        $from_name = $_POST['name'];
+        $email = $_POST['email'];
+        $subject = $_POST['subject'];
+        $message = $_POST['message'];
+
+        $headers = "From: {$from_name} {$email}";
+
+        $result = mail($to,$subject,$message,$headers);
+        
+        if(!$result) {
+            echo "There is a problem with your service provider";
+        } else {
+            echo "Thank you for contacting us!";
+        }
+        
+    }
+}
 ?>
