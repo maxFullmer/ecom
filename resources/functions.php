@@ -165,7 +165,7 @@ function get_product_reviews() {
     $ratings = query("SELECT * FROM ratings WHERE rating_product_id =" . escape_string($_SESSION['current_product_id']) . " ");
     confirm($ratings);
 
-    if (fetch_array($ratings) === NULL) {
+    if ($ratings === NULL) {
         echo "<hr><div class='row'><p></p><p>This product has no reviews yet!</p></div>";
     }
     else {
