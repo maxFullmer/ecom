@@ -253,7 +253,7 @@ function get_categories() {
 
     $category_link = <<<DELIMETER_CAT
 
-<a href='category.php?id={$row['cat_id']}' class='list-group-item'>{$row['cat_title']}</a>
+<a href='category.php?cat_id={$row['cat_id']}' class='list-group-item'>{$row['cat_title']}</a>
 
 DELIMETER_CAT;
 
@@ -264,15 +264,26 @@ DELIMETER_CAT;
 
 function get_products_by_category() {
 
-    $products_by_category = query("SELECT * FROM products WHERE product_category_id =" . escape_string($_GET['id']) . " ");
+    $products_by_category = query("SELECT P.*, C.cat_title FROM products AS P LEFT JOIN categories AS C ON P.product_category_id = C.cat_id WHERE P.product_category_id =" . escape_string($_GET['cat_id']) . " ");
     confirm($products_by_category);
 
+    $title_count = 1;
+
     while($product_by_cat = fetch_array($products_by_category)) {
+
+        $cat_title_HTML = "
+            <!-- Title -->
+                <div class='row'>
+                    <div class='col-lg-12 text-left'>
+                        <h3>{$product_by_cat['cat_title']}</h3>
+                    </div>
+                </div>";
+
         $product_by_cat_HTML = <<<DELIMETER_PROD_BY_CAT
 
 <div class="col-md-3 col-sm-6 hero-feature">
     <div class="thumbnail">
-        <img src="{$product_by_cat['product_image']}" alt="">
+        <img src="{$product_by_cat['product_image']}" onerror="this.src='./backup_prod_img.png';" alt="product">
         <div class="caption">
             <h3>{$product_by_cat['product_title']}</h3>
             <p>{$product_by_cat['product_description_short']}</p>
@@ -285,21 +296,26 @@ function get_products_by_category() {
 
 DELIMETER_PROD_BY_CAT;
 
+        if ($title_count === 1) {
+            echo $cat_title_HTML;
+            $title_count--;
+        }
+
         echo $product_by_cat_HTML;
     }
 }
 
 function get_products_for_shop_page() {
 
-    $products_for_shop_page = query("SELECT * FROM products WHERE product_category_id =" . escape_string($_GET['id']) . " ");
+    $products_for_shop_page = query("SELECT * FROM products ORDER BY product_id DESC LIMIT 3");
     confirm($products_for_shop_page);
 
     while($product_for_shop_page = fetch_array($products_for_shop_page)) {
-        $product_for_shop_page_HTML = <<<DELIMETER_PROD_BY_CAT
+        $product_for_shop_page_HTML = <<<DELIMETER_SHOP_PAGE
 
 <div class="col-md-3 col-sm-6 hero-feature">
     <div class="thumbnail">
-        <img src="{$product_for_shop_page['product_image']}" alt="">
+        <img src="{$product_for_shop_page['product_image']}" onerror="this.src='./backup_prod_img.png';" alt="product" >
         <div class="caption">
             <h3>{$product_for_shop_page['product_title']}</h3>
             <p>{$product_for_shop_page['product_description_short']}</p>
@@ -310,9 +326,9 @@ function get_products_for_shop_page() {
     </div>
 </div>
 
-DELIMETER_PROD_BY_CAT;
+DELIMETER_SHOP_PAGE;
 
-        echo $product_by_cat_HTML;
+        echo $product_for_shop_page_HTML;
     }
 }
 /* -------------------BACK END FUNCTIONS----------------- */

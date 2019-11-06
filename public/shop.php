@@ -26,7 +26,7 @@
         <!-- Title -->
         <div class="row">
             <div class="col-lg-12">
-                <h3>Latest Features</h3>
+                <h3>Latest Products</h3>
             </div>
         </div>
         <!-- /.row -->
@@ -34,7 +34,7 @@
         <!-- Page Features -->
         <div class="row text-center">
 
-        <?php get_products_by_category(); ?>
+        <?php get_products_for_shop_page(); ?>
 
         <?php include(TEMPLATE_FRONT . DS . "footer.php"); ?>
 
