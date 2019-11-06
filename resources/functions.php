@@ -352,22 +352,26 @@ function login_user() {
 
 function send_message() {
     if(isset($_POST['submit'])) {
-        $to = "hi5maxf@gmail.com";
+        $to = "max_fullmer@my.uri.edu";
         $from_name = $_POST['name'];
         $email = $_POST['email'];
         $subject = $_POST['subject'];
         $message = $_POST['message'];
 
-        $headers = "From: {$from_name} {$email}";
+        $headers = 'From: $from_name<$email>' . '\r\n' .
+                    'MIME-Version 1.0' . '\r\n' .
+                    'Content-type: text/html; charset=utf-8' . '\r\n' .
+                    'Return-path: $email';
 
         $result = mail($to,$subject,$message,$headers);
         
         if(!$result) {
-            echo "There is a problem with your service provider";
+            echo "Unable to send due to external error";
+        } else if (($from_name=="") || ($email=="") || ($message=="")) {
+            echo "Please fill out all required fields";
         } else {
-            echo "Thank you for contacting us!";
+            echo "Message successfully sent. Thank you for contacting us!";
         }
         
     }
 }
-?>
