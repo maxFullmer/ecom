@@ -70,7 +70,7 @@ function get_products() {
 
 <div class="col-sm-4 col-lg-4 col-md-4">
     <div class="thumbnail">
-        <a href="item.php?id={$row['product_id']}"><img src="{$row['product_image']}" alt="Product"></a>
+        <a href="item.php?id={$row['product_id']}"><img src="{$row['product_image']}" onerror="this.src='./backup_prod_img.png';" alt="Product"></a>
         <div class="caption">
             <h4 class="pull-right">\${$row['product_price']}</h4>
             <h4><a href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
@@ -351,27 +351,26 @@ function login_user() {
 }
 
 function send_message() {
-    if(isset($_POST['submit'])) {
-        $to = "max_fullmer@my.uri.edu";
-        $from_name = $_POST['name'];
-        $email = $_POST['email'];
-        $subject = $_POST['subject'];
-        $message = $_POST['message'];
+    // if(isset($_POST['submit'])) {
+    //     $SeedCommerce_email = "hi5maxf@gmail.com";
+    //     $from_name = $_POST['name'];
+    //     $sender_email = $_POST['email'];
+    //     $subject = $_POST['subject'];
+    //     $message = $_POST['message'];
 
-        $headers = 'From: $from_name<$email>' . '\r\n' .
-                    'MIME-Version 1.0' . '\r\n' .
-                    'Content-type: text/html; charset=utf-8' . '\r\n' .
-                    'Return-path: $email';
+    //     $headers = 'MIME-Version: 1.0' . "\r\n";
+    //     $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+    //     $headers .= 'To: <' . $SeedCommerce_email . '>' . "\r\n";
+    //     $headers .= 'From: ' . $from_name . ' <' . $sender_email . '>' . "\r\n";
 
-        $result = mail($to,$subject,$message,$headers);
+    //     $result = mail($SeedCommerce_email,$subject,'<html><body>' . $message . '</body></html>', $headers);
         
-        if(!$result) {
-            echo "Unable to send due to external error";
-        } else if (($from_name=="") || ($email=="") || ($message=="")) {
-            echo "Please fill out all required fields";
-        } else {
-            echo "Message successfully sent. Thank you for contacting us!";
-        }
-        
-    }
+    //     if(!$result) {
+    //         echo "Unable to send due to external error";
+    //     } else if (($from_name=="") || ($email=="") || ($message=="")) {
+    //         echo "Please fill out all required fields";
+    //     } else {
+    //         echo "Message successfully sent. Thank you for contacting us!";
+    //     }
+    // }
 }
