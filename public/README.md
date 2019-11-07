@@ -1,12 +1,15 @@
 # SeedCommerce
 
+Responsive eCommerce web app with shopping cart and enabled with PayPal services. Targets the horticulture industry/market.
+
 ## Features
 
-- responsive eCommerce web app enabled with PayPal services
 - Shopping cart
-- Admin section for updating products
+- Dynamic ratings for each product
+- Newest/Latest products added to database are automatically featured in Search the Catalog (shop.php) page
 
-
+### Planned features
+- Contact form. Will send email to SeedCommerce's email address.
 
 # [Start Bootstrap](http://startbootstrap.com/) - [Shop Homepage](http://startbootstrap.com/template-overviews/shop-homepage/)
 

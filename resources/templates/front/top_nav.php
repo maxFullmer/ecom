@@ -9,7 +9,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+                <a class="navbar-brand" href="index.php">SeedCommerce</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -24,7 +24,7 @@
                         <a href="admin">Admins Only</a>
                     </li>
                      <li>
-                        <a href="checkout.php">Checkout Cart .\_/.</a>
+                        <a href="checkout.php">Checkout Cart `\__]</a>
                     </li>
                     <li>
                         <a href="contact.php">Contact Us!</a>
