@@ -7,6 +7,9 @@ Responsive eCommerce web app with shopping cart and enabled with PayPal services
 - Shopping cart
 - Dynamic ratings for each product
 - Newest/Latest products added to database are automatically featured in Search the Catalog (shop.php) page
+- Admin:
+    - Create, Read, Update, Delete the products for the site
+    - Update Jumbotron banner announcements on Home page (index.php)
 
 ### Planned features
 - Contact form. Will send email to SeedCommerce's email address.
