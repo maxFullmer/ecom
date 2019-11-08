@@ -1,6 +1,10 @@
+a, h3 {
+    color: sienna;
+    font-weight: bold;
+}
+
 .caption {
-    background: orange;
-    /* height: 200px; */
+    background: rgb(78, 250, 78);
 }
 
 #featured {
