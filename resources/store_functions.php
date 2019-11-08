@@ -48,13 +48,17 @@ function display_message() {
 
 // SSR 1: fetch products for index.php (home page)
 function get_products() {
+    // session_unset();
 
     $products = query("SELECT * FROM products");
     confirm($products);
 
     while($row = fetch_array($products)) {
 
+    // data to be used in rating total
     $_SESSION['current_product_id'] = $row['product_id'];
+    // data to be used in add_to_cart.php
+    $_SESSION['product_info'] = $row;
 
     ob_start();
     include(TEMPLATE_FRONT . DS . "add_to_cart_button.php");
@@ -70,10 +74,10 @@ function get_products() {
 
 <div class="col-sm-4 col-lg-4 col-md-4">
     <div class="thumbnail">
-        <a href="item.php?id={$row['product_id']}"><img src="{$row['product_image']}" onerror="this.src='./backup_prod_img.png';" alt="Product"></a>
+        <a href="item.php?product_id={$row['product_id']}"><img src="{$row['product_image']}" onerror="this.src='./backup_prod_img.png';" alt="Product"></a>
         <div class="caption">
             <h4 class="pull-right">\${$row['product_price']}</h4>
-            <h4><a href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+            <h4><a href="item.php?product_id={$row['product_id']}">{$row['product_title']}</a>
             </h4>
             <p>{$row['product_description_short']}</p>
         </div>
@@ -94,16 +98,19 @@ DELIMETER_PRODS;
 
 // SSR 2: fetch single product for item.php (product page)
 function get_single_product() {
+    // session_unset();
 
-    $get_product = query(" SELECT * FROM products WHERE product_id =" . escape_string($_GET['id']) . " ");
+    $get_product = query(" SELECT * FROM products WHERE product_id =" . escape_string($_GET['product_id']) . " ");
     confirm($get_product);
 
     $product = fetch_array($get_product);
 
-    // send data to be used for description tag
+    // data to be used for description tag
     $_SESSION['current_product_description_long'] = $product['product_description_long'];
-    // allow data to be used for rating bar
-    $_SESSION['current_product_id'] = $_GET['id'];
+    // data to be used for rating bar
+    $_SESSION['current_product_id'] = $_GET['product_id'];
+    // data to be used in add to_cart_button.php to be sent to checkout.php (the cart)
+    $_SESSION['product_info'] = $product;
 
     ob_start();
     include(TEMPLATE_FRONT . DS . "add_to_cart_button.php");
@@ -263,13 +270,29 @@ DELIMETER_CAT;
 }
 
 function get_products_by_category() {
-
+    // session_unset();
+    
     $products_by_category = query("SELECT P.*, C.cat_title FROM products AS P LEFT JOIN categories AS C ON P.product_category_id = C.cat_id WHERE P.product_category_id =" . escape_string($_GET['cat_id']) . " ");
     confirm($products_by_category);
 
     $title_count = 1;
 
     while($product_by_cat = fetch_array($products_by_category)) {
+
+    // data to be used in rating total
+    $_SESSION['current_product_id'] = $product_by_cat['product_id'];
+    // data to be used in add to_cart_button.php
+    $_SESSION['product_info'] = $product_by_cat;
+
+    ob_start();
+    include(TEMPLATE_FRONT . DS . "add_to_cart_button.php");
+    $add_to_cart_button = ob_get_contents();
+    ob_end_clean();
+
+    ob_start();
+    include(TEMPLATE_FRONT . DS . "rating_total.php");
+    $rating_total = ob_get_contents();
+    ob_end_clean();
 
         $cat_title_HTML = "
             <!-- Title -->
@@ -287,9 +310,12 @@ function get_products_by_category() {
         <div class="caption">
             <h3>{$product_by_cat['product_title']}</h3>
             <p>{$product_by_cat['product_description_short']}</p>
-            <p>
-                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-            </p>
+
+            <!-- Add to cart button -->
+            {$add_to_cart_button}
+    
+            <!-- ratings bar -->
+            {$rating_total}
         </div>
     </div>
 </div>
@@ -338,15 +364,20 @@ function login_user() {
         $username= escape_string($_POST['username']);
         $password= escape_string($_POST['password']);
         
-    $attempt_login = query("SELECT * FROM users WHERE username = '{$username}' AND password = '{$password}' ");
-    confirm($attempt_login);
+        $attempt_login = query("SELECT * FROM users WHERE username = '{$username}' AND password = '{$password}' ");
+        confirm($attempt_login);
 
-    if(mysqli_num_rows($attempt_login) == 0) {
-        redirect("login.php");
-        set_message("Incorrect Credentials");
-    } else {
-        redirect("admin");
-    }
+        $login_info = fetch_array($attempt_login);
+
+        if (!$login_info) {
+            redirect("login.php");
+            set_message("Incorrect Credentials"); 
+        } else if ($login_info['is_admin'] == 1 && $username === $login_info['username'] && $password === $login_info['password']) {
+            $_SESSION['admin_username'] = $login_info['username'];
+            redirect("admin");
+        } else {
+            redirect("customer_orders.php");
+        }
     }
 }
 
