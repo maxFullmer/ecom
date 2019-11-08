@@ -18,14 +18,11 @@
                         <a href="shop.php">Search the Catalog</a>
                     </li>
                     <li>
-                        <a href="login.php">View Personal Account</a>
-                    </li>
-                    <li>
-                        <a href="admin">Admins Only</a>
-                    </li>
-                     <li>
                         <a href="checkout.php">Checkout Cart `\__]</a>
                     </li>
+                    <li>
+                        <a href="login.php">Manage Product Orders</a>
+                    </li>                    
                     <li>
                         <a href="contact.php">Contact Us!</a>
                     </li>
