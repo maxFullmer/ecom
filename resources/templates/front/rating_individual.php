@@ -1,6 +1,6 @@
 <?php
 
-$stars_from_rating = $_SESSION['current_rating_value'];
+$stars_from_rating = $_SESSION['rating_value'];
 
 $rating_bar = "";
 $full_star = "<span class='glyphicon glyphicon-star'></span>";
