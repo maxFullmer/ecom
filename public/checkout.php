@@ -2,21 +2,29 @@
 <?php require_once("../resources/cart_functions.php"); ?>
 
 <?php
-    unset($_SESSION['products_info_array']);
-    unset($_SESSION['single_product_info']);
+    unset($_SESSION['product_info']);
 
-    if(isset($_POST['add_to_cart_submit']) && isset($_POST['product_title']) && isset($_POST['product_price'])) {
+    if(!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
+    }
+
+    if(isset($_POST['add_to_cart_submit'])) {
         $_SESSION['cart'][] = [
+            'product_id' => $_POST['product_id'],
             'product_title' => $_POST['product_title'],
             'product_price' => $_POST['product_price'],
+            'product_quantity' => 1,
+            'quantity_left' => $_POST['quantity_left'],
+            'product_subtotal' => $_POST['product_price'],
         ];
     }
 
     unset($_POST['add_to_cart_submit']);
+    unset($_POST['product_id']);
     unset($_POST['product_title']);
     unset($_POST['product_price']);
-
-    var_dump($_SESSION['cart']);
+    unset($_POST['quantity_left']);
+    // session_unset();
 ?>
 
 <!DOCTYPE html>
@@ -41,30 +49,49 @@
 
       <h1>Checkout</h1>
 
-<form action="">
-    <table class="table table-striped">
-        <thead>
-          <tr>
-           <th>Product</th>
-           <th>Price</th>
-           <th>Quantity</th>
-           <th>Sub-total</th>
-     
-          </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>apple</td>
-                <td>$23</td>
-                <td>3</td>
-                <td>2</td>
-                <td><a href="cart.php?decrement=1">-</a></td>
-                <td><a href="cart.php?remove_from_cart=1">Remove From Cart</a></td>
-              
-            </tr>
-        </tbody>
-    </table>
-</form>
+      <form action="">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                    if($_SESSION['cart'] !== []) {
+                        var_dump($_SESSION['cart']);
+                        for($i = 0; $i < count($_SESSION['cart']); $i++) {
+                            $str_i = "$i";
+                            $item_title = $_SESSION['cart'][$str_i]['product_title'];
+                            $item_price = $_SESSION['cart'][$str_i]['product_price'];
+                            $item_quantity = $_SESSION['cart'][$str_i]['product_quantity'];
+                            $item_subtotal = $_SESSION['cart'][$str_i]['product_subtotal'];
+                            $stock = $_SESSION['cart'][$str_i]['quantity_left'];
+
+                            $cart_items_html = <<<DELIMETER_CART_ITEMS
+<tr class="removable">
+    <td>{$item_title}</td>
+    <td>\${$item_price}</td>
+    <td>{$item_quantity}</td>
+    <td>\${$item_subtotal}</td>
+    <td ="maxstock"><a href='checkout.php?increase_quantity=1&item={$i}&stock={$stock}'>+ Increase Quantity</a></td>
+    <td><a href='checkout.php?decrease_quantity=1&item={$i}'>- Decrease Quantity</a></td>
+    <td><a href='checkout.php?remove_from_cart={$i}'>Remove Item</a></td>
+</tr>
+
+DELIMETER_CART_ITEMS;
+
+                            echo $cart_items_html;
+                        }
+                // session_unset();
+                    }
+        ?>
+            </tbody>
+        </table>
+    </form>
 
 
 
@@ -120,6 +147,8 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+
+    <script src="js/cart_functions.js"></script>
 
 </body>
 
