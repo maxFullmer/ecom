@@ -47,82 +47,11 @@
 
 <div class="row">
 
-      <h1>Checkout</h1>
+        <h1>Checkout</h1>
 
-      <form action="">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Subtotal</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                    if($_SESSION['cart'] !== []) {
-                        var_dump($_SESSION['cart']);
-                        for($i = 0; $i < count($_SESSION['cart']); $i++) {
-                            $str_i = "$i";
-                            $item_title = $_SESSION['cart'][$str_i]['product_title'];
-                            $item_price = $_SESSION['cart'][$str_i]['product_price'];
-                            $item_quantity = $_SESSION['cart'][$str_i]['product_quantity'];
-                            $item_subtotal = $_SESSION['cart'][$str_i]['product_subtotal'];
-                            $stock = $_SESSION['cart'][$str_i]['quantity_left'];
-
-                            $cart_items_html = <<<DELIMETER_CART_ITEMS
-<tr class="removable">
-    <td>{$item_title}</td>
-    <td>\${$item_price}</td>
-    <td>{$item_quantity}</td>
-    <td>\${$item_subtotal}</td>
-    <td ="maxstock"><a href='checkout.php?increase_quantity=1&item={$i}&stock={$stock}'>+ Increase Quantity</a></td>
-    <td><a href='checkout.php?decrease_quantity=1&item={$i}'>- Decrease Quantity</a></td>
-    <td><a href='checkout.php?remove_from_cart={$i}'>Remove Item</a></td>
-</tr>
-
-DELIMETER_CART_ITEMS;
-
-                            echo $cart_items_html;
-                        }
-                // session_unset();
-                    }
-        ?>
-            </tbody>
-        </table>
-    </form>
-
-
-
-<!--  ***********CART TOTALS*************-->
+        <?php display_cart_table(); ?>
             
-<div class="col-xs-4 pull-right ">
-<h2>Cart Totals</h2>
-
-<table class="table table-bordered" cellspacing="0">
-
-<tr class="cart-subtotal">
-<th>Items:</th>
-<td><span class="amount">4</span></td>
-</tr>
-<tr class="shipping">
-<th>Shipping and Handling</th>
-<td>Free Shipping</td>
-</tr>
-
-<tr class="order-total">
-<th>Order Total</th>
-<td><strong><span class="amount">$3444</span></strong> </td>
-</tr>
-
-
-</tbody>
-
-</table>
-
-</div><!-- CART TOTALS-->
-
+        <?php display_cart_summary(); ?>
 
  </div><!--Main Content-->
 
