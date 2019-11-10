@@ -35,6 +35,7 @@ function set_message($msg){
     } else {
         $msg = "";
     }
+    return $_SESSION['message'];
 }
 
 function display_message() {
@@ -246,10 +247,8 @@ function get_products_by_category() {
         <a href="item.php?product_id={$product_by_cat['product_id']}"><h3>{$product_by_cat['product_title']}</h3></a>
             <p>{$product_by_cat['product_description_short']}</p>
 
-            <!-- Add to cart button -->
             {$add_to_cart_button}
     
-            <!-- ratings bar -->
             {$rating_total}
         </div>
     </div>
@@ -266,30 +265,42 @@ DELIMETER_PROD_BY_CAT;
     }
 }
 
-function get_products_for_shop_page() {
+function get_latest_products() {
 
-    $products_for_shop_page = query("SELECT * FROM products ORDER BY product_id DESC LIMIT 3");
-    confirm($products_for_shop_page);
+    $get_latest_products = query("SELECT * FROM products ORDER BY product_id DESC LIMIT 3");
+    confirm($get_latest_products);
 
-    while($product_for_shop_page = fetch_array($products_for_shop_page)) {
-        $product_for_shop_page_HTML = <<<DELIMETER_SHOP_PAGE
+    while($latest_product = fetch_array($get_latest_products)) {
+        $_SESSION['product_info'] = $latest_product;
+
+        ob_start();
+        include(TEMPLATE_FRONT . DS . "add_to_cart_button.php");
+        $add_to_cart_button = ob_get_contents();
+        ob_end_clean();
+    
+        ob_start();
+        include(TEMPLATE_FRONT . DS . "rating_total.php");
+        $rating_total = ob_get_contents();
+        ob_end_clean();
+
+        $latest_product_HTML = <<<DELIMETER_LATEST_PROD
 
 <div class="col-md-3 col-sm-6 hero-feature">
     <div class="thumbnail">
-    <a href="item.php?product_id={$product_for_shop_page['product_id']}"><img src="{$product_for_shop_page['product_image']}" onerror="this.src='./backup_prod_img.png';" alt="product" ></a>
+    <a href="item.php?product_id={$latest_product['product_id']}"><img src="{$latest_product['product_image']}" onerror="this.src='./backup_prod_img.png';" alt="product" ></a>
         <div class="caption">
-        <a href="item.php?product_id={$product_for_shop_page['product_id']}"><h3>{$product_for_shop_page['product_title']}</h3></a>
-            <p>{$product_for_shop_page['product_description_short']}</p>
-            <p>
-                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-            </p>
+        <a href="item.php?product_id={$latest_product['product_id']}"><h3>{$latest_product['product_title']}</h3></a>
+            <p>{$latest_product['product_description_short']}</p>
+
+            {$add_to_cart_button}
+
         </div>
     </div>
 </div>
 
-DELIMETER_SHOP_PAGE;
+DELIMETER_LATEST_PROD;
 
-        echo $product_for_shop_page_HTML;
+        echo $latest_product_HTML;
     }
 }
 /* -------------------BACK END FUNCTIONS----------------- */
