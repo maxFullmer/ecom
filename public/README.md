@@ -10,6 +10,7 @@ Responsive eCommerce web app with shopping cart and enabled with PayPal services
 - Admin:
     - Create, Read, Update, Delete the products for the site
     - Update Jumbotron banner announcements on Home page (index.php)
+    - View order data
 
 ### Planned features
 - Contact form. Will send email to SeedCommerce's email address.
