@@ -24,7 +24,10 @@
     unset($_POST['product_title']);
     unset($_POST['product_price']);
     unset($_POST['quantity_left']);
-    // session_unset();
+    
+    if(isset($_GET['paymentfailure'])) {
+        
+    }
 ?>
 
 <!DOCTYPE html>

@@ -19,10 +19,11 @@
             $update_orders = query("INSERT INTO orders (order_amount, order_transaction,
                 order_status, order_currency) VALUES ('{$amount}', '{$transaction}','{$status}',
                 '{$currency}')");
-
             confirm($update_orders);
+
+            $update_product_stock = query("UPDATE products SET quantity_left")
         } else {
-            redirect("index.php");
+            redirect("checkout.php?paymentfailed=badpayment");
         }
 
     ?>

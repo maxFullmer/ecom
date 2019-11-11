@@ -1,9 +1,6 @@
 <div class="col-md-12">
     <div class="row">
-        <h1 class="page-header">
-        All Orders
-
-        </h1>
+        <h1 class="page-header">All Orders</h1>
     </div>
 
     <div class="row">
