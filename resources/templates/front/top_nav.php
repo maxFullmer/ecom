@@ -13,9 +13,6 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="shop.php">Search the Catalog</a>
-                </li>
-                <li>
                     <a href="checkout.php">Checkout Cart `\__]</a>
                 </li>
                 <li>
