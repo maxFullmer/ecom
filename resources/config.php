@@ -2,8 +2,6 @@
 
 // output buffering
 ob_start();
-
-//makes a session
 session_start();
 
 // defining application paths
@@ -13,7 +11,6 @@ defined("TEMPLATE_BACK") ? null : define("TEMPLATE_BACK", __DIR__ . DS . "templa
 
 // defining database connections
 defined("DB_HOST") ? null : define("DB_HOST", "localhost");
-// don't forget to change root to updated phpmyadmin user so only I can access it
 defined("DB_USER") ? null : define("DB_USER", "root");
 defined("DB_PASS") ? null : define("DB_PASS", "");
 defined("DB_NAME") ? null : define("DB_NAME", "ecom_db");
