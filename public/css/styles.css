@@ -3,10 +3,6 @@ a, h3 {
     font-weight: bold;
 }
 
-.caption {
-    background: rgb(78, 250, 78);
-}
-
 #featured {
     align-self: auto;
     text-align: right;

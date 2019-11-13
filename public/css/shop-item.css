@@ -23,8 +23,11 @@ body {
 }
 
 .thumbnail .caption-full {
+    height: 180px;
     padding: 9px;
     color: #333;
+    background: rgb(78, 250, 78);
+    overflow: auto;
 }
 
 footer {

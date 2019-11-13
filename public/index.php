@@ -28,9 +28,10 @@
                 </div>
 
                 <div class="row">
-
-                    <?php get_products(); ?>
-
+                <div class="col-lg-12">
+                    <h3>Latest Products</h3>
+                        <?php get_latest_products(); ?>
+                    </div>
                 </div><!-- row ends here -->
 
             </div>

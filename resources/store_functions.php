@@ -71,7 +71,7 @@ function get_products() {
 <div class="col-sm-4 col-lg-4 col-md-4">
     <div class="thumbnail">
         <a href="item.php?product_id={$row['product_id']}"><img src="{$row['product_image']}" onerror="this.src='./backup_prod_img.png';" alt="Product"></a>
-        <div class="caption">
+        <div class="caption-full">
             <h4 class="pull-right">\${$row['product_price']}</h4>
             <h4><a href="item.php?product_id={$row['product_id']}">{$row['product_title']}</a>
             </h4>
@@ -243,7 +243,7 @@ function get_products_by_category() {
 <div class="col-md-3 col-sm-6 hero-feature">
     <div class="thumbnail">
     <a href="item.php?product_id={$product_by_cat['product_id']}"><img src="{$product_by_cat['product_image']}" onerror="this.src='./backup_prod_img.png';" alt="Product"></a>
-        <div class="caption">
+        <div class="caption-full">
         <a href="item.php?product_id={$product_by_cat['product_id']}"><h3>{$product_by_cat['product_title']}</h3></a>
             <p>{$product_by_cat['product_description_short']}</p>
 
@@ -288,7 +288,7 @@ function get_latest_products() {
 <div class="col-md-3 col-sm-6 hero-feature">
     <div class="thumbnail">
     <a href="item.php?product_id={$latest_product['product_id']}"><img src="{$latest_product['product_image']}" onerror="this.src='./backup_prod_img.png';" alt="product" ></a>
-        <div class="caption">
+        <div class="caption-full">
         <a href="item.php?product_id={$latest_product['product_id']}"><h3>{$latest_product['product_title']}</h3></a>
             <p>{$latest_product['product_description_short']}</p>
 
