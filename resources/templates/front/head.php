@@ -8,13 +8,10 @@
 
     <title>SeedCommerce</title>
 
-    <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Bootstrap Shop Homepage CSS -->
     <link href="css/shop-homepage.css" rel="stylesheet">
     
-    <!-- Custom CSS -->
     <link href="css/styles.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
