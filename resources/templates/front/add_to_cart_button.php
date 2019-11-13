@@ -5,7 +5,12 @@ $product_title = $_SESSION['product_info']['product_title'];
 $product_price = $_SESSION['product_info']['product_price'];
 $quantity_left = $_SESSION['product_info']['quantity_left'];
 
-echo "<form action='checkout.php' method='post'>
+if ($quantity_left == 0) {
+    echo "<div class='form-group'>
+        <input type='submit' class='btn btn-warning' name='add_to_cart_submit' value='OUT OF STOCK'>
+    </div>";
+} else {
+    echo "<form action='checkout.php' method='post'>
         <div class='form-group'>
             <input type='hidden' name='product_id' value='{$product_id}' >
             <input type='hidden' name='product_title' value='{$product_title}' >
@@ -14,5 +19,8 @@ echo "<form action='checkout.php' method='post'>
             <input type='submit' class='btn btn-primary' name='add_to_cart_submit' value='ADD TO CART'>
         </div>
 </form>";
+}
+
+
 
 ?>
