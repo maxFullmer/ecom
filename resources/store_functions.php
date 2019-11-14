@@ -200,7 +200,7 @@ DELIMETER_PROD_REVIEWS;
 // SSR call 5: fetch categories
 function get_categories() {
 
-    $quickSearch = "<input id='quickSearch' type='text' placeholder='Quick Search' >";
+    $quickSearch = "<input id='quickSearch' type='search' placeholder='Quick Search' >";
     echo $quickSearch;
 
     $categories = query("SELECT * FROM categories");
