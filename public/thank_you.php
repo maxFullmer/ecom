@@ -21,6 +21,26 @@
     //     redirect("./index.php");
     // }
 
+
+    // THE REAL PLAN:
+
+    /* 
+    If (payment failed):
+        1) Don't touch the $_SESSION['cart']
+        2) Tell the customer what happened and where to go/what to do
+            a) if paypal error -> that will be handled by them
+            b) if client side error -> ask them to check connection or wait a few moments and try again
+        3) Don't make db calls
+
+    else(if) (payment verified): 
+        1) store all order info based off what is in cart
+        2) send all that to orders table for logging
+        3) send only quantity_purchased for each item to
+            a) products table to update stock left
+            b) reports table to update how much stock has been sold for a product
+        4) unset($_SESSION['cart']);
+    
+    */
 ?>
 
 <!DOCTYPE html>

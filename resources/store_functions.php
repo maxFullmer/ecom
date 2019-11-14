@@ -331,6 +331,8 @@ function login_user() {
     }
 }
 
+// CONTACT PAGE ---------------------------------
+
 function send_message() {
     // if(isset($_POST['submit'])) {
     //     $SeedCommerce_email = "hi5maxf@gmail.com";
