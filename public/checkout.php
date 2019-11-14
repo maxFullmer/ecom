@@ -9,14 +9,27 @@
     }
 
     if(isset($_POST['add_to_cart_submit'])) {
-        $_SESSION['cart'][] = [
-            'product_id' => $_POST['product_id'],
-            'product_title' => $_POST['product_title'],
-            'product_price' => $_POST['product_price'],
-            'product_quantity' => 1,
-            'quantity_left' => $_POST['quantity_left'],
-            'product_subtotal' => $_POST['product_price'],
-        ];
+        $item_already_in_cart = false;
+
+
+        for ($item_in_cart_index = 0; $item_in_cart_index < count($_SESSION['cart']) ; $item_in_cart_index++) {
+            $str_item_in_cart_index = "$item_in_cart_index";
+
+            if($_POST['product_id'] == $_SESSION['cart'][$str_item_in_cart_index]['product_id']) {
+                $item_already_in_cart = true;
+            }
+        }
+
+        if (!$item_already_in_cart) {
+            $_SESSION['cart'][] = [
+                'product_id' => $_POST['product_id'],
+                'product_title' => $_POST['product_title'],
+                'product_price' => $_POST['product_price'],
+                'product_quantity' => 1,
+                'quantity_left' => $_POST['quantity_left'],
+                'product_subtotal' => $_POST['product_price'],
+            ];
+        }        
     }
 
     unset($_POST['add_to_cart_submit']);
