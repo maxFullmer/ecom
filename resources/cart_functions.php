@@ -188,10 +188,12 @@ function paypal_form_end() {
 
     <hr>
     <div class="text-center">
+        <p>If you would like to view orders within past 90 days, <a href="#">Create An Account</a> first. Otherwise, go ahead and ... </p>
         <input type="image" name="submit" border="0"
             src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_buynow_107x26.png" 
             alt="PayPal Buy Now" 
         />
+        
     </div>
 </form>
 

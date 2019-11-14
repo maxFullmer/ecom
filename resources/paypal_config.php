@@ -4,10 +4,10 @@
 $enableSandbox = true;
 
 $paypalConfig = [
-	'email' => 'user@example.com',
-	'return_url' => 'http://example.com/payment-successful.html',
-	'cancel_url' => 'http://example.com/payment-cancelled.html',
-	'notify_url' => 'http://example.com/payments.php'
+	'email' => 'sb-k3fgg547468@business.example.com',
+	'return_url' => 'localhost/ecom/public/thank_you.php',
+	'cancel_url' => 'localhost/ecom/public/thank_you.php',
+	'notify_url' => 'localhost/ecom/public/thank_you.php'
 ];
 $paypalUrl = $enableSandbox ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr';
 

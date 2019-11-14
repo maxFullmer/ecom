@@ -57,8 +57,13 @@
             // database.
             if (verifyTransaction($_POST) && checkTxnid($data['txn_id'])) {
                 if (addPayment($data) !== false) {
-                    // Payment successfully added.
-                    redirect("thank_you.php");
+                    // Payment successfully added, so define order array and push into $_SESSION['user_orders']
+
+                    // and also push order into database so admin can view
+
+                    // finally tell the buyer that order was successful
+                    $payment_success = "<span>Your payment was sucessfully processed. <a href='./login.php'>Log In</a>to view your orders within the last 30 days.<span>";
+                    echo $payment_success;
                 }
             }
         }
