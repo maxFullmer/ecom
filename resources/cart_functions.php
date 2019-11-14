@@ -28,19 +28,10 @@ function paypal_form_beginning() {
     $cart_form_beginning = <<<DELIMETER_CFB
 
 <form class="table-responsive" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-<input type="hidden" name="cmd" value="_cart">
-<input type="hidden" name="currency_code" value="USD">
-<input type="hidden" name="first_name" value="John">
-<input type="hidden" name="last_name" value="Doe">
-<input type="hidden" name="address1" value="9 Elm Street">
-<input type="hidden" name="address2" value="Apt 5">
-<input type="hidden" name="city" value="Berwyn">
-<input type="hidden" name="state" value="PA">
-<input type="hidden" name="zip" value="19312">
-<input type="hidden" name="night_phone_a" value="408">
-<input type="hidden" name="night_phone_b" value="838">
-<input type="hidden" name="night_phone_c" value="5807">
-<input type="hidden" name="email" value="sb-rky1f546415@personal.example.com">
+    <input type="hidden" name="upload" value="1" >
+    <input type="hidden" name="business" value="sb-k3fgg547468@business.example.com" >
+    <input type="hidden" name="cmd" value="_cart">
+    <input type="hidden" name="currency_code" value="USD">
 
 DELIMETER_CFB;
     echo $cart_form_beginning;
@@ -86,18 +77,18 @@ DELIMETER_CTB;
 <td>{$item_title}</td>
 <td>\${$item_price}</td>
 <td>
-    <div class='text-center'>{$item_quantity}</div>
-    <div class='text-center'>
-        <input id="{$cart_index}" type="number" min="1" max="{$stock}" >
-        <div onclick="update_quantity(this.previousElementSibling)" class='btn btn-primary'><span class='glyphicon glyphicon-refresh'></span></div>
-        <a class='btn btn-danger' href='checkout.php?remove_from_cart={$cart_index}'><span class='glyphicon glyphicon-remove'></span></a>
+    <div class="text-center">{$item_quantity}</div>
+    <div class="text-center">
+        <input id="{$cart_index}" type="number" placeholder="Update" min="1" max="{$stock}" >
+        <div class="btn btn-primary" onclick="update_quantity(this.previousElementSibling)" ><span class="glyphicon glyphicon-refresh"></span></div>
+        <a class="btn btn-danger" href="checkout.php?remove_from_cart={$cart_index}"><span class="glyphicon glyphicon-remove"></span></a>
     </div>
 </td>
 <td>{$stock}</td>
 <td>\${$item_subtotal}</td>
 </tr>
 
-<input type="hidden" name="amount_{$paypal_index}" value="{$item_subtotal}" >
+<input type="hidden" name="amount_{$paypal_index}" value="{$item_price}" >
 <input type="hidden" name="item_name_{$paypal_index}" value="{$item_title}" >
 <input type="hidden" name="item_number_{$paypal_index}" value="{$item_id}" >
 <input type="hidden" name="quantity_{$paypal_index}" value="{$item_quantity}" >
@@ -118,8 +109,8 @@ DELIMETER_CART_ITEMS;
 function display_cart_summary() {
     $_SESSION['shipping_option'] = "Free Shipping";
     $cart_summary = <<<DELIMETER_CS
-
-<div class="col-xs-4 pull-right ">
+<hr>
+<div class="col-4">
     <h2>Cart Totals</h2>
 
     <table class="table table-bordered" cellspacing="0">
@@ -148,13 +139,60 @@ DELIMETER_CS;
 
 function paypal_form_end() {
     $paypal_form_end = <<<DELIMETER_PFE
+<hr>
+    <h2>Shipping Information</h2>
+    <div>
+        <label for="first_name">First Name: </label>
+        <input type="text" name="first_name" value="John">
+    </div>
+    <div>
+        <label for="last_name">Last Name: </label>
+        <input type="text" name="last_name" value="Doe">
+    </div>
+    <div>
+        <label for="address1">Address 1: </label>
+        <input type="text" name="address1" value="9 Elm Street">
+    </div>
+    <div>
+        <label for="address2">Address 2: </label>
+        <input type="text" name="address2" value="Apt 5">
+    </div>
+    <div>
+        <label for="city">City: </label>
+        <input type="text" name="city" value="Berwyn">
+    </div>
+    <div>
+        <label for="state">State: </label>
+        <input type="text" name="state" value="PA">
+    </div>
+    <div>
+        <label for="zip">Zip Code: </label>
+        <input type="text" name="zip" value="19312">
+    </div>
+    <div>
+        <label for="night_phone_a">First 3 of Phone Number: </label>
+        <input type="text" name="night_phone_a" value="408">
+    </div>
+    <div>
+        <label for="night_phone_b">Middle 3 of Phone Number: </label>
+        <input type="text" name="night_phone_b" value="838">
+    </div>
+    <div>
+        <label for="night_phone_c">Last 4 of Phone Number: </label>
+        <input type="text" name="night_phone_c" value="5807">
+    </div>
+    <div>
+        <label for="email">PayPal Email: </label>
+        <input type="email" name="email" value="sb-rky1f546415@personal.example.com">
+    </div>
 
-    <input type="hidden" name="upload" value="1" >
-    <input type="hidden" name="business" value="sb-k3fgg547468@business.example.com" >
-    <input type="image"  name="submit" border="0"
-        src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_buynow_107x26.png" 
-        alt="PayPal Buy Now" 
+    <hr>
+    <div class="text-center">
+        <input type="image" name="submit" border="0"
+            src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_buynow_107x26.png" 
+            alt="PayPal Buy Now" 
         />
+    </div>
 </form>
 
 DELIMETER_PFE;
