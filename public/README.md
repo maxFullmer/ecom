@@ -14,6 +14,8 @@ Responsive eCommerce web app with shopping cart and enabled with PayPal services
 
 ### Planned features
 - Contact form. Will send email to SeedCommerce's email address.
+- Customer/User:
+    - view previous orders
 
 # [Start Bootstrap](http://startbootstrap.com/) - [Shop Homepage](http://startbootstrap.com/template-overviews/shop-homepage/)
 
