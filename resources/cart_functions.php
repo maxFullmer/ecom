@@ -27,11 +27,13 @@ if(isset($_GET['change_quantity'])) {
 function paypal_form_beginning() {
     $cart_form_beginning = <<<DELIMETER_CFB
 
-<form class="table-responsive" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+<!-- <form class="table-responsive" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post"> -->
+<form class="table-responsive" action="checkout.php" method="post">
     <input type="hidden" name="upload" value="1" >
     <input type="hidden" name="business" value="sb-k3fgg547468@business.example.com" >
     <input type="hidden" name="cmd" value="_cart">
     <input type="hidden" name="currency_code" value="USD">
+    <input type="hidden" name="custom" value="{$_SESSION['username']}">
 
 DELIMETER_CFB;
     echo $cart_form_beginning;

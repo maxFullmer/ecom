@@ -41,6 +41,22 @@
     // if(isset($_GET['paymentfailure'])) {
         
     // }
+
+    if(isset($_POST['cmd'])) {
+        $_SESSION['orders'][] = [
+            'purchase_info' => $_SESSION['cart'],
+            'email' => $_POST['email'],
+            'phone' => $_POST['night_phone_a'] . $_POST['night_phone_b'] . $_POST['night_phone_c'],
+            'ship_address' => $_POST['address1'] . ", " . $_POST['address2'] . ", " . $_POST['city'] . ", " . $_POST['state'] . ", " . $_POST['zip'],
+            'full_name' => $_POST['first_name'] . " " . $_POST['last_name'],
+        ];
+
+        log_sales();
+       
+        var_dump($_SESSION['orders']);
+        unset($_POST);
+        $_SESSION['cart'] = [];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +73,7 @@
                 <h1>Checkout</h1>
 
                 <?php 
+
                     if($_SESSION['cart'] === []) {
                         if(!isset($_SESSION['username'])) {
                             $_SESSION['username'] = "Dearest Customer";

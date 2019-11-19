@@ -331,6 +331,25 @@ function login_user() {
     }
 }
 
+function log_sales() {
+    for($i2 = 0; $i2 < count($_SESSION['cart']); $i2++) {
+        $cart_index_sale = "$i2";
+        $item_id_sale = $_SESSION['cart'][$cart_index_sale]['product_id'];
+        $item_title_sale = $_SESSION['cart'][$cart_index_sale]['product_title'];        
+        $item_price_sale = $_SESSION['cart'][$cart_index_sale]['product_price'];
+        $item_subtotal_sale = $_SESSION['cart'][$cart_index_sale]['product_subtotal'];
+        $item_quantity_sale = $_SESSION['cart'][$cart_index_sale]['product_quantity'];
+        $stock_sale = $_SESSION['cart'][$cart_index_sale]['quantity_left'];
+        $new_stock_value = $stock_sale - $item_quantity_sale;
+
+        $sale = query("INSERT INTO product_sales (product_id_fk, title, subtotal, quantity_purchased, current_price) VALUES ('{$item_id_sale}','{$item_title_sale}','{$item_subtotal_sale}','{$item_quantity_sale}','{$item_price_sale}')");
+        confirm($sale);
+
+        $update_stock = query("UPDATE products SET quantity_left = $new_stock_value WHERE product_id = $item_id_sale");
+        confirm($update_stock);
+    }
+}
+
 // CONTACT PAGE ---------------------------------
 
 function send_message() {
