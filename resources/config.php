@@ -17,5 +17,6 @@ defined("DB_NAME") ? null : define("DB_NAME", "ecom_db");
 
 $connection = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
 
+// store functionality
 require_once("store_functions.php");
 ?>
