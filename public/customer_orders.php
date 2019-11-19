@@ -11,8 +11,8 @@
         redirect("./index.php");
     }
     
-    if (!isset($_SESSION['user_orders'])) {
-        $_SESSION['user_orders'] = [];
+    if (!isset($_SESSION['orders'])) {
+        $_SESSION['orders'] = [];
     }
 
 ?>
@@ -28,7 +28,7 @@
 
     <?php 
 
-        // display_orders from $_SESSION['user_orders']
+        var_dump($_SESSION['orders']);
         
     ?>
 
