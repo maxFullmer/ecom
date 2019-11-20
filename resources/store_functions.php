@@ -350,11 +350,35 @@ function log_sales() {
     }
 }
 
+function get_monthly_product_reports($current_month_int) {
+
+        $get_product_gross = query("SELECT product_id_fk, title, SUM(subtotal) subtotal FROM product_sales WHERE MONTH(when_ordered) = $current_month_int GROUP BY product_id_fk ");
+        confirm($get_product_gross);
+        
+        while($product_gross = fetch_array($get_product_gross)) {
+            $display_prod_id = $product_gross['product_id_fk'];
+            $display_title = $product_gross['title'];
+            $display_product_gross = number_format($product_gross['subtotal'], 2, '.', ',');
+
+            $product_gross_tbody = <<<DELIMETER_PGTB
+
+<tr>
+    <td>{$display_prod_id}</td>
+    <td>{$display_title}</td>
+    <td>\${$display_product_gross}</td>
+</tr>
+
+DELIMETER_PGTB;
+
+            echo $product_gross_tbody;
+        }
+}
+
 // CONTACT PAGE ---------------------------------
 
 function send_message() {
     // if(isset($_POST['submit'])) {
-    //     $SeedCommerce_email = "hi5maxf@gmail.com";
+    //     $SeedCommerce_email = "sb-k3fgg547468@business.example.com";
     //     $from_name = $_POST['name'];
     //     $sender_email = $_POST['email'];
     //     $subject = $_POST['subject'];
