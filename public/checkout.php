@@ -43,8 +43,10 @@
     // }
 
     if(isset($_POST['cmd'])) {
+        $dateTimeAtOrder = new DateTime();
         $_SESSION['orders'][] = [
             'purchase_info' => $_SESSION['cart'],
+            'date_ordered' => $dateTimeAtOrder,
             'email' => $_POST['email'],
             'phone' => $_POST['night_phone_a'] . $_POST['night_phone_b'] . $_POST['night_phone_c'],
             'ship_address' => $_POST['address1'] . ", " . $_POST['address2'] . ", " . $_POST['city'] . ", " . $_POST['state'] . ", " . $_POST['zip'],
