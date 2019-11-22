@@ -350,9 +350,9 @@ function log_sales() {
     }
 }
 
-function get_monthly_product_reports($current_month_int) {
+function get_monthly_product_reports($month_int) {
 
-        $get_product_gross = query("SELECT product_id_fk, title, SUM(subtotal) subtotal FROM product_sales WHERE MONTH(when_ordered) = $current_month_int GROUP BY product_id_fk ");
+        $get_product_gross = query("SELECT product_id_fk, title, SUM(subtotal) subtotal FROM product_sales WHERE MONTH(when_ordered) = $month_int GROUP BY product_id_fk ");
         confirm($get_product_gross);
         
         while($product_gross = fetch_array($get_product_gross)) {
