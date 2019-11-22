@@ -8,55 +8,47 @@
                     2) have the active class for carousel slide be the current month
                     3) 
                 */
-
-
-                // replace $i3 < 4 with $i3 < length of $product_id_array
                 $month_converter_array = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-                $carousel_months = <<<DELIMETER_CM
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-<ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="7"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="8"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="9"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="10"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="11"></li>
-</ol>
-<div class="carousel-inner">
-    <div class="carousel-item active">
-    <img class="d-block w-100" src="..." alt="First slide">
-    </div>
-    <div class="carousel-item">
-    <img class="d-block w-100" src="..." alt="Second slide">
-    </div>
-    <div class="carousel-item">
-    <img class="d-block w-100" src="..." alt="Third slide">
-    </div>
-</div>
-<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-</a>
-<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-</a>
-</div>
-DELIMETER_CM;
-                echo $carousel_months;
-                // for ($month_int = 1; $month_int <= 12; $month_int++) {
-                    $display_month = $month_converter_array[$month_int - 1];
-                    // $display_month_num = date("m");
-                    // $display_month = $month_converter_array[$display_month_num - 1];
+                /* ------ Select ------ */
+                echo "<select class='month-select'>";
+                for ($i4 = 0; $i4 < count($month_converter_array); $i4++) {
+                    $select_month_name = $month_converter_array[$i4];
+                    echo "<option value='{$i4}'>{$select_month_name}</option>";
+                }
+                echo "</select>";
 
-                    $product_gross_table_header = <<<DELIMETER_PGTH
+                /* ------ Carousel ------ */
+                $current_month_int = date("m");
+                $display_month_int = $current_month_int;
+                $display_month_name = $month_converter_array[$display_month_int - 1];
+
+                $carousel_start = <<<CAROUSEL_START
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+CAROUSEL_START;
+
+                $carousel_middle = <<<CAROUSEL_MIDDLE
+
+    </ol>
+    <div class="carousel-inner">
+CAROUSEL_MIDDLE;
+    
+                $carousel_end = <<<CAROUSEL_END
+
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+CAROUSEL_END;
+
+                $product_gross_table_header = <<<DELIMETER_PGTH
         
 <table class='table table-hover'>
     <thead>
@@ -70,11 +62,48 @@ DELIMETER_CM;
 
 DELIMETER_PGTH;
 
-                    echo "<h2>{$display_month}</h2>";
-                    echo $product_gross_table_header;
-                    get_monthly_product_reports($month_int);
-                    echo "</tbody></table>";
-                // }
+                echo $carousel_start;
+
+                for ($i5 = 1; $i5 <= 12; $i5++) {
+                    if($i5 == $current_month_int) {
+                        $carousel_indicator = "<li class='active' data-target='#carouselExampleIndicators' data-slide-to='{$i5}' ></li>";
+                    } else {
+                        $carousel_indicator = "<li data-target='#carouselExampleIndicators' data-slide-to='{$i5}'</li>";
+                    }
+
+                    echo $carousel_indicator;
+                }
+
+                echo $carousel_middle;
+
+                for ($i6 = 1; $i6 <= 12; $i6++) {
+                    if($i6 == $current_month_int) {
+                        $carousel_item_start = "<div class='carousel-item active'>";
+                    } else {
+                        $carousel_item_start = "<div class='carousel-item'>";
+                    }
+                    $carousel_item_end = "</div>";
+                    $carousel_item_inner_containter_start = "<div class='carousel-caption d-none d-md-block' >";
+                    $carousel_item_inner_containter_end = "</div>";
+
+                    echo $carousel_item_start;
+                        echo $carousel_item_inner_containter_start;
+                            echo "<h2>{$display_month_name}</h2>";
+                            echo $product_gross_table_header;
+                            get_monthly_product_reports($i6);
+                            echo "</tbody></table>";
+                        echo $carousel_item_inner_containter_end;
+                    echo $carousel_item_end;
+                }
+
+                echo $carousel_end;
+
+                    
+                    // echo "<h2>{$display_month_name}</h2>";
+                    // echo $product_gross_table_header;
+                    // get_monthly_product_reports($display_month_int);
+                    // echo "</tbody></table>";
+//                 // }
             ?>
 
 </div>
