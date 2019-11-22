@@ -13,3 +13,10 @@ function update_quantity(inputElementBeforeButton) {
     }; 
 
 }
+
+$('.month-select').on('change', function () {
+    let month_selected_index = this.value;
+    console.log(month_selected_index);
+    $('.carousel').carousel(month_selected_index);
+});
+    
