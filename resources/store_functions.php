@@ -401,4 +401,7 @@ function send_message() {
     //         echo "Message successfully sent. Thank you for contacting us!";
     //     }
     // }
+
+    // this is a long file...
+    // Consider moving back end functions to another file
 }
