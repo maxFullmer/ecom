@@ -2,6 +2,8 @@
     <h1 class="page-header">All Products</h1>
 
            <?php 
+                // Find a way to automatically queue today's date.
+
                 $month_converter_array = ["January","February","March","April","May","June","July","August","September","October","November","December"];
                 $_SESSION['selected_year'] = date("Y");                
 
